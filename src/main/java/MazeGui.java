@@ -2,6 +2,7 @@ import java.awt.Font;
 import java.awt.geom.AffineTransform;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
@@ -14,7 +15,7 @@ public class MazeGui{
     public MazeGui(String title, String dpi, String mazeSize){
         this.mazeSize = mazeSize;
 
-        // Added for my own sanity, Xfce hates properly scaling Java programs.
+        // Added for my own sanity, Xfce hates properly scaling Swing GUIs.
         int HIGH_DPI_WIDTH = 1000;
         int HIGH_DPI_HEIGHT = 1000;
         int HIGH_DPI_FONT = 76;
@@ -50,7 +51,6 @@ public class MazeGui{
         // Might not need
         Font baseFont = new Font(Font.MONOSPACED, Font.PLAIN, fontSize);
 
-        // Def do need
         AffineTransform transform = new AffineTransform();
 
         transform.scale(xy, xz);
@@ -85,5 +85,68 @@ public class MazeGui{
 
     public void println(String text){
         this.print(text + "\n");
+    }
+
+    public static Object[] MazeDialog(){
+
+        String[] dpiOptions = {"High DPI", "Low DPI"};
+        int size = 0;
+        String dpi;
+
+        int dpiChoice = JOptionPane.showOptionDialog(
+            null,
+            "Select your DPI settings:",
+            "DPI settings",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            dpiOptions,
+            dpiOptions[0]
+        );
+        
+        if (dpiChoice == JOptionPane.CLOSED_OPTION) {
+            System.exit(0);
+        }
+
+
+        // 2. Prompt user for the maze size dimension (integer)
+        String sizeInput = JOptionPane.showInputDialog(
+            null,
+            "Enter maze size (leave blank for 25):",
+            "Maze Size",
+            JOptionPane.QUESTION_MESSAGE
+        );
+
+        // Exit if the user cancelled
+        if (sizeInput == null) {
+            System.exit(0);
+        }
+
+        try {
+            if (sizeInput.isEmpty()){ 
+                size = 25;
+            }else{
+                size = Integer.parseInt(sizeInput.trim());
+            }
+
+            if (size <= 0) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(
+                null, 
+                "Whoa nelly. Please use a positive number.", 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
+
+        if (dpiChoice == 0){
+            dpi = "high_dpi";
+        }else{
+            dpi = "low_dpi";
+        }
+
+    return new Object[] {dpi, size};
     }
 }

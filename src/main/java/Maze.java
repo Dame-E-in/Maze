@@ -120,6 +120,9 @@ public class Maze{
     private boolean chanceFifty(){
         return this.random.nextInt(10) > 4;
     }
+    private boolean chanceOne(){
+        return this.random.nextInt(100) > 98;
+    }
 
     private void createSolution(){
         int currRow = start[0];
@@ -131,8 +134,10 @@ public class Maze{
         * Should definitely make it so that it would never loop infinitely but the chances are so mathematically low that I don't think it matters.
         */
 
+        int counter = 0;
+
         while (currRow != finish[0] || currCol != finish[1]){
-            if (chanceTen()){
+            if (chanceTen() || counter > 1000000){
                 if (currRow < finish[0]){
                     currRow++;
                 }else if (currRow > finish[0]){
@@ -157,21 +162,35 @@ public class Maze{
             if (isNotStart && isNotFinish) {
                 this.maze[currRow][currCol] = BLOCKS.get("hall");
             }
+            counter++;
+
+            System.out.println("Create solution counter: " + counter);
         }
     }
 
     @Override
     public String toString(){
-        String str = "";
+        // String str = "";
 
         int size = this.maze.length;
 
+        // for (int row = 0; row < size; row++){
+        //         for (int column = 0; column < size; column++){
+        //             str += this.maze[row][column];
+        //     }
+        // str += "\n";
+
+        // return str;
+
+        // Didn't work for huge mazes
+
+        StringBuilder str = new StringBuilder();
         for (int row = 0; row < size; row++){
-                for (int column = 0; column < size; column++){
-                    str += this.maze[row][column];
+            for (int column = 0; column < size; column++){
+                str.append(this.maze[row][column]);
             }
-        str += "\n";
+            str.append("\n");
         }
-    return str;
+        return str.toString();
     }
 }
