@@ -98,20 +98,36 @@ public class Maze{
         }
     }
 
-    private boolean checkAbove(int row, int column){
+    public boolean checkAbove(int row, int column){
         return this.maze[row - 1][column].equals(BLOCKS.get("wall"));
     }
 
-    private boolean checkBelow(int row, int column){
+    public boolean checkBelow(int row, int column){
         return this.maze[row + 1][column].equals(BLOCKS.get("wall"));
     }
 
-    private boolean checkLeft(int row, int column){
+    public boolean checkLeft(int row, int column){
         return this.maze[row][column - 1].equals(BLOCKS.get("wall"));
     }
 
-    private boolean checkRight(int row, int column){
+    public boolean checkRight(int row, int column){
         return this.maze[row][column + 1].equals(BLOCKS.get("wall"));
+    }
+
+    public boolean isFinish(int row, int column){
+        return this.maze[row][column].equals(BLOCKS.get("finish"));
+    }
+
+    public boolean scan(int row, int column){
+        if(this.maze[row][column].equals(BLOCKS.get("wall"))){
+            this.maze[row][column] = BLOCKS.get("scan");
+        }
+
+        return false;
+    }
+
+    public int[] getStart(){
+        return this.start;
     }
 
     private boolean chanceTen(){
