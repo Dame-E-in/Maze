@@ -13,7 +13,7 @@ public class Maze{
         "finish", "F",
         "test", "T",
         "scan", "@",
-        "path", "R" //R for reserved
+        "path", "+" //R for reserved
     ));
 
     // Remove now that HashMaps allowed
