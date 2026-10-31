@@ -118,12 +118,23 @@ public class Maze{
         return this.maze[row][column].equals(BLOCKS.get("finish"));
     }
 
-    public boolean scan(int row, int column){
-        if(this.maze[row][column].equals(BLOCKS.get("wall"))){
-            this.maze[row][column] = BLOCKS.get("scan");
-        }
+    public boolean isFinish(int[] curr){
+        return isFinish(curr[0], curr[1]);
+    }
 
+    public boolean scan(int row, int column){
+
+        if(this.maze[row][column].equals(BLOCKS.get("hall"))){
+            this.maze[row][column] = BLOCKS.get("scan");
+            return true;
+        }else if(isFinish(row, column)){
+            return true;
+        }
         return false;
+    }
+
+    public boolean scan(int[] curr){
+        return scan(curr[0], curr[1]);
     }
 
     public int[] getStart(){
