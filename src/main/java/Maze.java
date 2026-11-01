@@ -13,7 +13,7 @@ public class Maze{
         "finish", "F",
         "test", "T",
         "scan", "@",
-        "path", "+" //R for reserved
+        "path", "+" 
     ));
 
     // Remove now that HashMaps allowed
@@ -102,6 +102,10 @@ public class Maze{
         return this.maze[row - 1][column].equals(BLOCKS.get("wall"));
     }
 
+    public boolean checkAbove(int[] curr){
+        return checkAbove(curr[0], curr[1]);
+    }
+
     public boolean checkBelow(int row, int column){
         return this.maze[row + 1][column].equals(BLOCKS.get("wall"));
     }
@@ -135,6 +139,18 @@ public class Maze{
 
     public boolean scan(int[] curr){
         return scan(curr[0], curr[1]);
+    }
+
+    public boolean pave(int row, int column){
+        if(this.maze[row][column] == BLOCKS.get("scan")){
+            this.maze[row][column] = BLOCKS.get("path");
+            return true;
+        }
+        return false;
+    }
+
+    public boolean pave(int[] curr){
+        return pave(curr[0], curr[1]);
     }
 
     public int[] getStart(){

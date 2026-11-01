@@ -15,6 +15,7 @@ public class MazeGui{
     public MazeGui(String title, String dpi, String mazeSize){
         this.mazeSize = mazeSize;
 
+        // Probably need to fix this disaster since it's broken on Windows.
         // Added for my own sanity, Xfce hates properly scaling Swing GUIs.
         int HIGH_DPI_WIDTH = 1000;
         int HIGH_DPI_HEIGHT = 1000;
@@ -108,8 +109,6 @@ public class MazeGui{
             System.exit(0);
         }
 
-
-        // 2. Prompt user for the maze size dimension (integer)
         String sizeInput = JOptionPane.showInputDialog(
             null,
             "Enter maze size (leave blank for 25):",
@@ -117,7 +116,6 @@ public class MazeGui{
             JOptionPane.QUESTION_MESSAGE
         );
 
-        // Exit if the user cancelled
         if (sizeInput == null) {
             System.exit(0);
         }
