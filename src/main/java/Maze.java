@@ -24,19 +24,26 @@ public class Maze{
     private Random random = new Random();
     private int[] start;
     private int[] finish;
+    boolean debugMode;
 
-    public Maze(int size){
+    public Maze(int size, boolean debugMode){
         this.size = size;
         this.maze = new String[this.size][this.size];
+        this.debugMode = debugMode;
         generate();
     }
 
     private void generate(){
 
+        if (debugMode) System.out.println(toString());
         fillWithEmpty();
+        if (debugMode) System.out.println(toString());
         buildOuterWall();
+        if (debugMode) System.out.println(toString());
         createWallRandomly();
+        if (debugMode) System.out.println(toString());
         createWallConnectedToOtherWalls();
+        if (debugMode) System.out.println(toString());
 
         this.start = new int[] {this.random.nextInt(this.size - 2) + 1, this.random.nextInt(this.size - 2) + 1};
         this.maze[this.start[0]][this.start[1]] = BLOCKS.get("start");
@@ -51,7 +58,9 @@ public class Maze{
         
         this.maze[this.finish[0]][this.finish[1]] = BLOCKS.get("finish");
 
+        if (debugMode) System.out.println(toString());
         createSolution();
+        if (debugMode) System.out.println(toString());;
     }
 
     private void fillWithEmpty(){
@@ -163,9 +172,9 @@ public class Maze{
     private boolean chanceFifty(){
         return this.random.nextInt(10) > 4;
     }
-    private boolean chanceOne(){
-        return this.random.nextInt(100) > 98;
-    }
+    // private boolean chanceOne(){
+    //     return this.random.nextInt(100) > 98;
+    // }
 
     private void createSolution(){
         int currRow = start[0];
@@ -191,10 +200,12 @@ public class Maze{
                     currCol--;
                 }
             }else{
-                if ((currRow < this.size - 2) && (currRow > 2)){
+                boolean inBounds = (currRow < this.size - 2) && (currRow > 2);
+                boolean moveRow = chanceFifty();
+
+                if (inBounds && moveRow){
                 currRow = currRow + (random.nextInt(3) - 1);
-                }
-                if ((currCol < this.size - 2) && (currCol > 2)){
+                }else if (inBounds && !moveRow){
                 currCol = currCol + (random.nextInt(3) - 1);
                 }
             }
@@ -207,7 +218,7 @@ public class Maze{
             }
             counter++;
 
-            System.out.println("Create solution counter: " + counter);
+            if (debugMode) System.out.println("Create solution counter: " + counter);
         }
     }
 
