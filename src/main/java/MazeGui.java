@@ -12,8 +12,12 @@ public class MazeGui{
     private JTextArea textArea;
     private String mazeSize;
 
-    public MazeGui(String title, String dpi, String mazeSize){
-        this.mazeSize = mazeSize;
+    public MazeGui(String title, String dpi, int size){
+        if (size > 25){
+            this.mazeSize = "big";
+        }else{
+            this.mazeSize = "small";
+        }
 
         // Probably need to fix this disaster since it's broken on Windows.
         // Added for my own sanity, Xfce hates properly scaling Swing GUIs.

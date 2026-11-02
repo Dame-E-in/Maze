@@ -22,19 +22,10 @@ public class MazeDemo {
 
         if (debugMode) System.out.println("DPI choice: " + dpi + "\nMaze Size: " + size);
 
-
-        // this really should be somewhere in MazeGui.java
-
-        if (size > 25){
-            mazeSize = "big";
-        }else{
-            mazeSize = "small";
-        }
-
         Maze maze1 = new Maze(size, debugMode);
         if (debugMode) System.out.println(maze1);
         
-        MazeGui gui = new MazeGui("Maze Demo", dpi, mazeSize);
+        MazeGui gui = new MazeGui("Maze Demo", dpi, size);
         Search.bfs(maze1, debugMode);
         gui.println(maze1.toString());
     }

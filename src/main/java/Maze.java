@@ -200,7 +200,8 @@ public class Maze{
                     currCol--;
                 }
             }else{
-                boolean inBounds = (currRow < this.size - 2) && (currRow > 2);
+                boolean inBounds = (currRow < this.size - 3) && (currRow > 2) &&
+                                   (currCol < this.size - 3) && (currCol > 2);
                 boolean moveRow = chanceFifty();
 
                 if (inBounds && moveRow){
