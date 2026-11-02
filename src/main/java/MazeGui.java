@@ -2,7 +2,6 @@ import java.awt.Font;
 import java.awt.geom.AffineTransform;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
@@ -92,63 +91,4 @@ public class MazeGui{
         this.print(text + "\n");
     }
 
-    public static Object[] MazeDialog(){
-
-        String[] dpiOptions = {"High DPI", "Low DPI"};
-        int size = 0;
-        String dpi;
-
-        int dpiChoice = JOptionPane.showOptionDialog(
-            null,
-            "Select your DPI settings:",
-            "DPI settings",
-            JOptionPane.DEFAULT_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            null,
-            dpiOptions,
-            dpiOptions[0]
-        );
-        
-        if (dpiChoice == JOptionPane.CLOSED_OPTION) {
-            System.exit(0);
-        }
-
-        String sizeInput = JOptionPane.showInputDialog(
-            null,
-            "Enter maze size (leave blank for 25):",
-            "Maze Size",
-            JOptionPane.QUESTION_MESSAGE
-        );
-
-        if (sizeInput == null) {
-            System.exit(0);
-        }
-
-        try {
-            if (sizeInput.isEmpty()){ 
-                size = 25;
-            }else{
-                size = Integer.parseInt(sizeInput.trim());
-            }
-
-            if (size <= 0) {
-                throw new NumberFormatException();
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(
-                null, 
-                "Whoa nelly. Please use a positive number.", 
-                "Error", 
-                JOptionPane.ERROR_MESSAGE
-            );
-        }
-
-        if (dpiChoice == 0){
-            dpi = "high_dpi";
-        }else{
-            dpi = "low_dpi";
-        }
-
-    return new Object[] {dpi, size};
-    }
 }

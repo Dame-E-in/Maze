@@ -64,7 +64,7 @@ public class Search{
 
         // You said yes to HashMaps, but I only asked for that one instance.
         // Will make this a hell of a lot prettier if I get permission to use one here too.
-        
+
         while(true){
         closest_neighbor = current_point;
             for (int i = visited.size() - 1; i >= 0; i--){
@@ -116,6 +116,7 @@ public class Search{
                 }
             }
         }
+        if (debugMode) System.out.println(maze.toString());
         return maze;
     }
     
