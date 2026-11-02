@@ -16,10 +16,7 @@ public class CliDialog extends Config{
             curr = scanner.nextLine();
             if (!curr.isBlank()){
                 size = Integer.parseInt(curr);
-            }else if(curr.isBlank()){
-                // Uhh it throws an error if this isn't here lmao
-            }else if (Integer.parseInt(curr) <= 0){
-                System.out.println("Input an integer greater than 0.");
+                if (Integer.parseInt(curr) <= 0) System.out.println("Input an integer greater than 0.");
             }
         }catch(NumberFormatException e){
             System.out.println("Not an integer.");
